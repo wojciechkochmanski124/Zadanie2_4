@@ -1,0 +1,38 @@
+modules = ["java-graalvm22.3"]
+[agent]
+expertMode = true
+
+[workflows]
+runButton = "1"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Run Java App"
+
+[[workflows.workflow]]
+name = "Run Java App"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "java Main.java"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "1"
+mode = "sequential"
+author = 48590050
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac src/*.java && java -cp src Main"
+
+[nix]
+channel = "stable-25_05"
